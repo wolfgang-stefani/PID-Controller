@@ -17,7 +17,7 @@ PID stands for Proportional-Integral-Differential. The PID Controller is a contr
  * It is a distance between the vehicle´s actual trajectory and the groundtruth trajectory. It is best suited to control the vehicle by steering in proportion to CTE.
  
  ### Systematic Bias
-* Systematic bias is a problem that often occurs in robotics. The problem is due to mechanics. Buying for example a vehicle, we think the steerable front wheels are 100% aligned. But in reality the wheels can be aligned a little bit at an angle. For humans this is not a big deal because we just countersteer intuitionally but in robotics this is a fact to be considered.
+* Systematic bias is a problem that often occurs in robotics. The problem is due to mechanics. Buying for example a vehicle, we think the steerable front wheels are 100% aligned. But in reality the wheels can be aligned a little bit at an angle. The systematic bias manifests itself in a steering drift. For humans this is not a big deal because we just countersteer intuitionally but in robotics this is a fact to be considered. 
  
 ### P-Controller 
 * sets the steering angle in proportion to CTE (the coefficient tau_p is called "response strength"):
@@ -25,7 +25,7 @@ PID stands for Proportional-Integral-Differential. The PID Controller is a contr
 `steering angle = -tau_p * cte`
 
 * steers the vehicle towards the trajectory but when it reaches the trajectory it overshoots.
-* using only P-Controller leads to overshooting which is demonstrated in the following graph:
+* using only P-Controller leads to overshooting and oscillating which is demonstrated in the following graph:
 
 <p align="center">
   <img width="400" height="200" src="readme_data/p.png">
@@ -36,7 +36,7 @@ PID stands for Proportional-Integral-Differential. The PID Controller is a contr
 
 `steering angle = -tau_p * cte - tau_d * diff_cte`
 
-* the derivative component countersteers the vehicle and helps not to overshoot the trajectoy
+* the derivative component countersteers the vehicle and helps not to overshoot the trajectoy and oscillate
 * The following graph demonstrates the behaviour of P- and PD-controller.
 
 <p align="center">
@@ -44,13 +44,17 @@ PID stands for Proportional-Integral-Differential. The PID Controller is a contr
 </p>
 
 ### PID-Controller
-* this controller finally solves the problem of overshooting and systematic bias by adding one more term. In addition to the PD-Controller the steering angle is prportional to the integral of CTE:
+* this controller finally solves the problem of overshooting and systematic bias by adding one more term. In addition to the PD-Controller the steering angle is prportional to the integral of CTE. It sums up the systematic error and compensates it.
 
 `steering angle = -tau_p * cte - tau_d * diff_cte - tau_i * int_cte`
 
 <p align="center">
   <img width="400" height="200" src="readme_data/pid.png">
 </p>
+
+Now it seems like PID is doing worse than PD but this is only because the graphs above assumed an ideal robot with no bias. Below you can see the corresponding P-, PD-  and PID-graphs using a robot with systematic bias. The dashed line is the goal PID controller. We achieve this with a so-called twiddle PID controller (green line) with tuned parameters.
+
+
 
 # Implementation and Tuning
 Manual tuning of PID coefficients for steering and throttle values.
