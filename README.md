@@ -54,7 +54,11 @@ PID stands for Proportional-Integral-Differential. The PID Controller is a contr
 
 Now it seems like PID is doing worse than PD but this is only because the graphs above assumed an ideal robot with no bias. Below you can see the corresponding P-, PD-  and PID-graphs using a robot with systematic bias. The dashed line is the goal PID controller. We achieve this with a so-called twiddle PID controller (green line) with tuned parameters.
 
+<p align="center">
+  <img width="400" height="200" src="readme_data/twiddle.png">
+</p>
 
+Now the PID controller outshines PD controller. Also, with twiddle the PID controller converges faster but we overshoot drastically at first. This overshoot can be reduced by tuning the twiddle parameters.
 
 # Implementation and Tuning
 Manual tuning of PID coefficients for steering and throttle values.
