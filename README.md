@@ -1,74 +1,73 @@
 # PID-Controller
-Control algorithm to control throttle/brake and steering to control a vehicle smoothly around a track
+Control algorithm to control a vehicle smoothly around a track.
 
 ![](results/pid_brake.gif)
 
 ---
-# Introduction
-### Goal:
-This project implements a PID controller in C++ to maneuver the vehicle around the track in the [simulator](https://github.com/udacity/self-driving-car-sim.git)! Two PID controllers are to be implemented one for steering control and another for throttle control.
+# Description
+This software implements a PID controller in C++ to maneuver the vehicle around the track in a simulator. The simulator will provide the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angle.
+Two PID controllers are implemented, one for steering control and another for throttle control.
+
+These three controllers are combined in such a way that it produces a control signal. This is how the vehicle uses steering, throttle, and brake to move through the world, executing a trajectory created by the path planning block.
 
 # Fundamentals
-PID stands for Proportional-Integral-Derivative. It is a controller with three coeffients P, I and D. The effects of these coefficients are discussed below.
+PID stands for Proportional-Integral-Differential. The PID Controller is a controller with three coefficients.
 
  ### Cross Track Error (CTE)
  * It is a distance between the vehicle´s actual trajectory and the groundtruth trajectory. It is best suited to control the vehicle by steering in proportion to CTE.
  
  ### Systematic Bias
-* This is a term used in Robotics that tells you how much the vehicle´s steerable wheels are aligned.
+* Systematic bias is a problem that often occurs in robotics. The problem is due to mechanics. Buying for example a vehicle, we think the steerable front wheels are 100% aligned. But in reality the wheels can be aligned a little bit at an angle. For humans this is not a big deal because we just countersteer intuitionally but in robotics this is a fact to be considered.
  
-### P- Controller 
-* It sets the steering angle in proportion to CTE by virtue of a gain parameter called tau_p.
+### P-Controller 
+* sets the steering angle in proportion to CTE (the coefficient tau_p is called "response strength"):
 
 `steering angle = -tau_p * cte`
 
-* This controller steeers the vehicle towords the trajectory but when it reaches the trajectory it overshoots.
-* The following graph demonstrates the overshooting due to P controller.
+* steers the vehicle towards the trajectory but when it reaches the trajectory it overshoots.
+* using only P-Controller leads to overshooting which is demonstrated in the following graph:
 
 <p align="center">
-  <img width="400" height="200" src="results/p.png">
+  <img width="400" height="200" src="readme_data/p.png">
 </p>
 
 ### PD- Controller 
-* In this controller the steering angle is not just proportional to CTE by virtue of tau_p but also the temporal derivative of the CTE with a gain parameter called tau_d.
+* steering angle is not just proportional to CTE but also to the time derivative of CTE:
 
 `steering angle = -tau_p * cte - tau_d * diff_cte`
 
-* This helps the vehicle to not overshoot the trajectoy as the the derivative component counter steers the vehicle.
-* The following graph demonstrates the behaviour of P controller and PD controller.
+* the derivative component countersteers the vehicle and helps not to overshoot the trajectoy
+* The following graph demonstrates the behaviour of P- and PD-controller.
 
 <p align="center">
-  <img width="400" height="200" src="results/pd.png">
+  <img width="400" height="200" src="readme_data/pd.png">
 </p>
 
-### PID- Controller
-* Finally this controller overcomes the problem of overshooting and systematic bias by adding one more term.
+### PID-Controller
+* this controller finally solves the problem of overshooting and systematic bias by adding one more term. In addition to the PD-Controller the steering angle is prportional to the integral of CTE:
 
 `steering angle = -tau_p * cte - tau_d * diff_cte - tau_i * int_cte`
 
-* This time, addition to PD controller parameters the steering angle is prportional to integral of all CTE over time. 
-* The following graph summerizes the P-, PD-, and PID- controllers.
-
 <p align="center">
-  <img width="400" height="200" src="results/pid.png">
+  <img width="400" height="200" src="readme_data/pid.png">
 </p>
 
-# Implementation
-Manual tunning of PID coefficients for steering and throttle values.
+# Implementation and Tuning
+Manual tuning of PID coefficients for steering and throttle values.
 
-#### Tunning P- Controller
+#### P-Controller
 The vehicle drives along the trajectory with oscillations.
 
-![](results/p.gif)
+![](readme_data/p.gif)
 
-#### Tunning PD- Controller
+#### PD-Controller
 The vehicle follows the trajectory with relatively low oscillations.
-![](results/d.gif)
+![](readme_data/d.gif)
 
-#### Tunning PID- Controller 
+#### PID-Controller 
 The vehicle follows the trajectory but due to overspeeding it shakes while taking turns.
-![](results/pid.gif)
+![](readme_data/pid.gif)
 
-#### PID- Controller for throttle value
+#### PID-Controller for throttle value
 The braking while taking turns allows the vehicle to take the turns smoothly.
-![](results/pid_brake.gif)
+![](readme_data/pid_brake.gif)
