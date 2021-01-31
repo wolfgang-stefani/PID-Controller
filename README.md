@@ -1,6 +1,6 @@
 # PID-Controller
 
-![](readme_data/pid.gif)
+[![IMAGE ALT TEXT HERE](./readme_data/Thumbnail.png)](https://youtu.be/1uSolAqVdQ0)
 
 ---
 ## Description
@@ -78,5 +78,6 @@ The vehicle follows the trajectory with relatively low oscillations.
 ![](readme_data/pd.gif)
 
 ### PID-Controller 
-The vehicle follows the trajectory but due to overspeeding it shakes while taking turns.
-![](readme_data/pid.gif)
+The vehicle follows the trajectory but due to overspeeding it shakes while taking turns. See the YouTube clip in the beginning of this Readme.
+
+[image1]: ./readme_data/Thumbnail.png "Thumbnail"
