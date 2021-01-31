@@ -83,8 +83,8 @@ The vehicle follows the trajectory with relatively low oscillations:
 </p>
 
 ### PID-Controller 
-The vehicle follows the trajectory but due to overspeeding it shakes while taking turns:
+The vehicle follows the trajectory quite well.
 <p align="left">
   <img width="362" height="272" src="readme_data/pid.gif">
 </p>
-See the full clip on [this video](src/pid.cpp)
+Due to overspeeding it shakes while taking turns. You can see this in the full clip on YouTube in which the car is driving a whole round: https://www.youtube.com/watch?v=1uSolAqVdQ0
