@@ -34,20 +34,16 @@ int main() {
 
   PID pid;
   /**
-   * TODO: Initialize the pid variable.
+   * Initialize the pid variable.
    */
   
-  //pid.Init(0.8, 0.004, 5.0);
-  //pid.Init_p({0.08,0,0.8});
+  // pid.Init(0.8, 0.004, 5.0, {0.08,0,0.8});
   
-  // pid.Init(0.8, 0.004, 3.0);
-  // pid.Init_p({0.08,0,0.8});
+  // pid.Init(0.8, 0.004, 3.0, {0.08,0,0.8});
 
-  // pid.Init(0.2, 0.004, 3.0);
-  // pid.Init_p({0.08,0,0.8});
+  // pid.Init(0.2, 0.004, 3.0, {0.08,0,0.8});
   
-  pid.Init(0.15, 0.003, 4.0);
-  pid.Init_p({0.08,0,0.8});
+  pid.Init(0.15, 0.003, 4.0, {0.08, 0, 0.8});
   
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
                      uWS::OpCode opCode) {
@@ -71,12 +67,11 @@ int main() {
         if (event == "telemetry") {
           // j[1] is the data JSON object
           double cte = std::stod(j[1]["cte"].get<string>());
-          double speed = std::stod(j[1]["speed"].get<string>());
-          double angle = std::stod(j[1]["steering_angle"].get<string>());
+          // double speed = std::stod(j[1]["speed"].get<string>());
+          // double angle = std::stod(j[1]["steering_angle"].get<string>());
           double steer_value;
           /**
-           * TODO: Calculate steering value here, remember the steering value is between [-1, 1].
-           * NOTE: Feel free to play around with the throttle and speed. Maybe use another PID controller to control the speed!
+           * Calculate steering value here. Steering value is between [-1, 1].
            */
           
           // Update error and calculate steer_value at each step
@@ -109,8 +104,6 @@ int main() {
                     }
 
                     pid.twiddle(average_err);
-                    pid.print_output(average_err);
-
                     run_counter = 0;
                     err_sum = 0.0;
                     off_road = false;
