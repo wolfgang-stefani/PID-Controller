@@ -1,6 +1,8 @@
 # PID-Controller
 
-[![IMAGE ALT TEXT HERE](./readme_data/Thumbnail.png)](https://youtu.be/1uSolAqVdQ0)
+<p align="left">
+  <img width="362" height="272" src="readme_data/pid.gif">
+</p>
 
 ---
 ## Description
@@ -69,15 +71,20 @@ Manual tuning of PID coefficients for steering values.
 Please refer to the code lines 40 to 46 in [main.cpp](src/main.cpp) to see the different, tested values for the PID coefficients and retrace the approach to good values. In the following you can see what it would look like to drive with only P- or PD-Controller and the final result with a PID controller.
 
 ### P-Controller
-The vehicle drives along the trajectory with oscillations.
-
-![](readme_data/p.gif)
+The vehicle drives along the trajectory with oscillations:
+<p align="left">
+  <img width="362" height="272" src="readme_data/p.gif">
+</p>
 
 ### PD-Controller
-The vehicle follows the trajectory with relatively low oscillations.
-![](readme_data/pd.gif)
+The vehicle follows the trajectory with relatively low oscillations:
+<p align="left">
+  <img width="362" height="272" src="readme_data/pd.gif">
+</p>
 
 ### PID-Controller 
-The vehicle follows the trajectory but due to overspeeding it shakes while taking turns. See the YouTube clip in the beginning of this Readme.
-
-[image1]: ./readme_data/Thumbnail.png "Thumbnail"
+The vehicle follows the trajectory but due to overspeeding it shakes while taking turns:
+<p align="left">
+  <img width="362" height="272" src="readme_data/pid.gif">
+</p>
+See the full clip on [this video](src/pid.cpp)
