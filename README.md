@@ -6,6 +6,8 @@
 ## Description
 This software implements a PID controller in C++ to maneuver a vehicle around the track in a simulator. The simulator will provide the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angles.
 
+
+
 ## Fundamentals
 PID stands for Proportional-Integral-Differential. The PID Controller is a controller with three coefficients. But first, let's have a look on two important terms before explaining the three components.
 
@@ -59,6 +61,8 @@ Below you can see the corresponding P-, PD-  and PID-graphs using a robot with s
 
 The dashed line is the goal PID-Controller. We achieve this with a so-called twiddle PID controller (green line) with tuned parameters.
 Now the PID controller outshines the PD controller. Also, with twiddle the PID controller converges faster but we overshoot drastically at first. This overshoot can be reduced by tuning the twiddle parameters.
+
+
 
 ## Implementation and Tuning coefficients
 Manual tuning of PID coefficients for steering values.
