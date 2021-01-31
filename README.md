@@ -1,21 +1,21 @@
 # PID-Controller
 
-![](results/pid_brake.gif)
+![](readme_data/pid.gif)
 
 ---
-# Description
+## Description
 This software implements a PID controller in C++ to maneuver the vehicle around the track in a simulator. The simulator will provide the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angle.
 Two PID controllers are implemented, one for steering control and another for throttle control.
 
 These three controllers are combined in such a way that it produces a control signal. This is how the vehicle uses steering, throttle, and brake to move through the world, executing a trajectory created by the path planning block.
 
-# Fundamentals
+## Fundamentals
 PID stands for Proportional-Integral-Differential. The PID Controller is a controller with three coefficients.
 
- ### Cross Track Error (CTE)
+### Cross Track Error (CTE)
  * It is a distance between the vehicle´s actual trajectory and the groundtruth trajectory. It is best suited to control the vehicle by steering in proportion to CTE.
  
- ### Systematic Bias
+### Systematic Bias
 * Systematic bias is a problem that often occurs in robotics. The problem is due to mechanics. Buying for example a vehicle, we think the steerable front wheels are 100% aligned. But in reality the wheels can be aligned a little bit at an angle. The systematic bias manifests itself in a steering drift. For humans this is not a big deal because we just countersteer intuitionally but in robotics this is a fact to be considered. 
  
 ### P-Controller 
@@ -63,18 +63,18 @@ Below you can see the corresponding P-, PD-  and PID-graphs using a robot with s
 The dashed line is the goal PID-Controller. We achieve this with a so-called twiddle PID controller (green line) with tuned parameters.
 Now the PID controller outshines the PD controller. Also, with twiddle the PID controller converges faster but we overshoot drastically at first. This overshoot can be reduced by tuning the twiddle parameters.
 
-# Implementation and Tuning
+## Implementation and Tuning
 Manual tuning of PID coefficients for steering values.
 
-#### P-Controller
+### P-Controller
 The vehicle drives along the trajectory with oscillations.
 
 ![](readme_data/p.gif)
 
-#### PD-Controller
+### PD-Controller
 The vehicle follows the trajectory with relatively low oscillations.
 ![](readme_data/d.gif)
 
-#### PID-Controller 
+### PID-Controller 
 The vehicle follows the trajectory but due to overspeeding it shakes while taking turns.
 ![](readme_data/pid.gif)
