@@ -37,24 +37,19 @@ int main() {
    * Initialize the pid variable.
    */
   
-  // pid.Init(0.8, 0.004, 5.0, {0.08,0,0.8});
+  // Tuning parameters (PID coefficients)
+  // pid.Init(0.8, 0.004, 5.0);
+  // pid.Init(0.8, 0.004, 3.0);
+  // pid.Init(0.2, 0.004, 3.0);
+  // pid.Init(0.15, 0.003, 4.0);
   
-  // pid.Init(0.8, 0.004, 3.0, {0.08,0,0.8});
-
-  // pid.Init(0.2, 0.004, 3.0, {0.08,0,0.8});
-  
-  pid.Init(0.15, 0.003, 4.0, {0.08, 0, 0.8});
+  pid.Init(0.15, 0.003, 4.0);
   
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
                      uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
-    
-    static double err_sum = 0.0;
-    static int run_counter = 0; // counts the number of runs
-    static bool off_road = false;
-    static const bool run_twiddle = false;
     
     if (length && length > 2 && data[0] == '4' && data[1] == '2') {
       auto s = hasData(string(data).substr(0, length));
@@ -70,59 +65,21 @@ int main() {
           // double speed = std::stod(j[1]["speed"].get<string>());
           // double angle = std::stod(j[1]["steering_angle"].get<string>());
           double steer_value;
+          
           /**
            * Calculate steering value here. Steering value is between [-1, 1].
            */
           
           // Update error and calculate steer_value at each step
-          pid.UpdateError(cte);
-          steer_value = pid.TotalError();
+          pid.UpdateErrors(cte);
+          steer_value = pid.TotalError(); // remember: steer value ( = steer angle α ) equals (-p_error * Kp -i_error * Ki - d_error * Kd) which is the sum of the three errors weighted by their corresponding coefficient
 
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
           
-          // ensure steering value is between [-1, 1]
+          // ensuring steer value is between [-1, 1]
           if (steer_value > 1) steer_value = 1;
           else if (steer_value < -1) steer_value = -1;
         
-            
-            // skip initial 100 cte
-            if (run_counter > 100){
-                err_sum += cte*cte;
-                // If cte > 5 the car has left the road
-                if (abs(cte) > 5) {
-                    off_road = true;
-                }
-            }
-
-            run_counter += 1;
-            if (run_twiddle) {
-              // Run twiddle if running finishes or car is offroad
-                if (run_counter > 3000 || off_road){
-                    double average_err = err_sum;
-                    if (off_road){
-                        average_err += 1000;
-                    }
-
-                    pid.twiddle(average_err);
-                    run_counter = 0;
-                    err_sum = 0.0;
-                    off_road = false;
-                    //Resetting simulator
-                    std::string msg("42[\"reset\", {}]");
-                    ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-                    }
-
-                }
-            else{
-                if (run_counter > 3000){
-                    std::cout<< " Accum error   "<<err_sum<<"\n";
-                    run_counter = 0;
-                    err_sum = 0.0;
-                    off_road = false;
-                }
-
-            }
-
           json msgJson;
           msgJson["steering_angle"] = steer_value;
           msgJson["throttle"] = 0.3;
