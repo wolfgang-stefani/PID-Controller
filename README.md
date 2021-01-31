@@ -1,5 +1,4 @@
 # PID-Controller
-Control algorithm to control a vehicle smoothly around a track.
 
 ![](results/pid_brake.gif)
 
@@ -65,7 +64,7 @@ The dashed line is the goal PID-Controller. We achieve this with a so-called twi
 Now the PID controller outshines the PD controller. Also, with twiddle the PID controller converges faster but we overshoot drastically at first. This overshoot can be reduced by tuning the twiddle parameters.
 
 # Implementation and Tuning
-Manual tuning of PID coefficients for steering and throttle values.
+Manual tuning of PID coefficients for steering values.
 
 #### P-Controller
 The vehicle drives along the trajectory with oscillations.
@@ -79,7 +78,3 @@ The vehicle follows the trajectory with relatively low oscillations.
 #### PID-Controller 
 The vehicle follows the trajectory but due to overspeeding it shakes while taking turns.
 ![](readme_data/pid.gif)
-
-#### PID-Controller for throttle value
-The braking while taking turns allows the vehicle to take the turns smoothly.
-![](readme_data/pid_brake.gif)
