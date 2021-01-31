@@ -22,9 +22,7 @@ class PID {
    * Initialize PID.
    * @param (Kp_, Ki_, Kd_) The initial PID coefficients
    */
-  void Init(double Kp_, double Ki_, double Kd_);
-
-  void Init_p(vector<double> input_dp);
+  void Init(double Kp_, double Ki_, double Kd_, vector<double> input_dp);
   
   /**
    * Update the PID error variables given cross track error.
@@ -39,7 +37,6 @@ class PID {
   double TotalError();
   void twiddle(double current_err);
   void move_index();
-  void print_output(double current_err);
 
  private:
   /**
