@@ -75,7 +75,7 @@ The vehicle drives along the trajectory with oscillations.
 
 ### PD-Controller
 The vehicle follows the trajectory with relatively low oscillations.
-![](readme_data/d.gif)
+![](readme_data/pd.gif)
 
 ### PID-Controller 
 The vehicle follows the trajectory but due to overspeeding it shakes while taking turns.
