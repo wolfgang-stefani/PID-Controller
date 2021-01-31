@@ -4,25 +4,21 @@ PID::PID() {}
 
 PID::~PID() {}
 
-void PID::Init(double Kp_, double Ki_, double Kd_) {
+void PID::Init(double Kp_, double Ki_, double Kd_, vector<double> input_dp) {
   /**
-   * Initialize PID coefficients
+   * Initialize PID coefficients and errors
    */
   
   Kp = Kp_;
   Ki = Ki_;
   Kd = Kd_;
+  
+  p = {Kp,Ki,Kd};
+  p_error = 0;
+  i_error = 0;
+  d_error = 0;
+  dp = input_dp;
 
-}
-
-void PID::Init_p(vector<double> input_dp){
-    
-    // Only initialize errors once and keep them for next round of calculations
-    p = {Kp,Ki,Kd};
-    p_error = 0;
-    i_error = 0;
-    d_error = 0;
-    dp = input_dp;
 }
 
 void PID::UpdateError(double cte) {
@@ -44,8 +40,7 @@ double PID::TotalError() {
 }
 
 void PID::twiddle(double current_err){
-    // Calculate sum of dp:
-    //https://stackoverflow.com/questions/3221812/how-to-sum-up-elements-of-a-c-vector
+    // Calculate sum of dp
     double sum = 0.0;
     for (auto& n : dp)
         sum += n;
@@ -106,20 +101,10 @@ void PID::twiddle(double current_err){
                 break;
             
         }
-        Init(p[0], p[1], p[2]);
+        Init(p[0], p[1], p[2], dp);
     }
     
 
-}
-
-void PID::print_output(double current_err){
-    std::cout
-    << "\n***********************************************************\nIteration " << iter
-    << " Best Error: "<< best_err <<" Current error: " << current_err
-    << " Current state: " << state << " Index " << index
-    << "\nNext P:    " << Kp <<","<< Ki<< ","<< Kd
-    << "\ndp:        " << dp[0] <<","<< dp[1]<< ","<< dp[2]
-    << "\n*************************************************************\n"<<std::endl;
 }
                   
 void PID::move_index(){
