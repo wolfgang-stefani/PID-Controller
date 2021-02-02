@@ -1,20 +1,20 @@
 # PID-Controller
+This software implements a PID controller in C++ to maneuver a vehicle around a track in a simulator. The simulator will provide the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angles.
 
 <p align="left">
   <img width="362" height="272" src="readme_data/pid.gif">
 </p>
 
 ---
-## Description
-This software implements a PID controller in C++ to maneuver a vehicle around the track in a simulator. The simulator will provide the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angles.
-
-
 
 ## Fundamentals
-PID stands for Proportional-Integral-Differential. The PID Controller is a controller with three coefficients. But first, let's have a look on two important terms before explaining the three components.
+
+A large number of different controllers exist to move robots and vehicles. The most fundamental is called PID (Proportional-Integral-Differential). It enables complex, changing accelerations and steering angles. The PID controller is an algorithm that calculates a value (for example a steering wheel angle) according to an error called CTE (see next section for an explanation).
+
+PID is a controller with three coefficients. But first, let's have a look on two important terms before explaining the three components.
 
 ### Cross Track Error (CTE)
- * It is a distance between the vehicle´s actual trajectory and the groundtruth trajectory. It is best suited to control the vehicle by steering in proportion to CTE.
+ * distance between the vehicle´s actual trajectory and the intended trajectory
  
 ### Systematic Bias
 * Systematic bias is a problem that often occurs in robotics. The problem is due to mechanics. Buying for example a vehicle, we think the steerable front wheels are 100% aligned. But in reality the wheels can be aligned a little bit at an angle. The systematic bias manifests itself in a steering drift. For humans this is not a big deal because we just countersteer intuitionally but in robotics this is a fact to be considered. 
