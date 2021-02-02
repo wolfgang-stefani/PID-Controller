@@ -1,5 +1,5 @@
 # PID-Controller
-This software implements a PID controller in C++ to maneuver a vehicle around a track in a simulator. The simulator will provide the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angles.
+This software implements a PID controller in C++ to maneuver a vehicle around a track in a simulator. The simulator will provide the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angles. The following clips shows the vehicle in the simulator controlled by the PID controller. This is only for demonstration. The coefficients still can be tuned to perform an even more smooth and comfortable ride.
 
 <p align="left">
   <img width="362" height="272" src="readme_data/pid.gif">
